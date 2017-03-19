@@ -1,23 +1,27 @@
 library(tidyverse)
 library(lubridate)
 library(ggplot2)
-co<-read_csv("~/Downloads/ghg-concentrations_fig-1.csv")
-me<-read_csv("~/Downloads/ghg-concentrations_fig-2.csv")
-no<-read_csv("~/Downloads/ghg-concentrations_fig-3.csv")
+co<-read_csv("https://www.epa.gov/sites/production/files/2016-08/ghg-concentrations_fig-1.csv",skip = 6)
+me<-read_csv("https://www.epa.gov/sites/production/files/2016-08/ghg-concentrations_fig-2.csv",skip = 6)
+no<-read_csv("https://www.epa.gov/sites/production/files/2016-08/ghg-concentrations_fig-3.csv",skip = 6)
+
 co<-gather(co,location,co2,2:11)
 me<-gather(me,location,nh4,2:6)
 no<-gather(no,location,no2,2:7)
 head(co)
 head(me)
 head(no)
-a<-bind_rows(co,me,no)
+a<-bind_rows(co,me,no) %>% rename(Year=`Year (negative values = BC)`) %>% mutate(Year=as.numeric(Year))
 b<-gather(a,type,val,3:5)
 head(b )
 
 bb<-filter(b,Year>1699, !is.na(val), type=="co2") %>% mutate(val=as.numeric(val))
 ggplot(bb,aes(x=Year,y=val),colour="blue")+
   geom_smooth(se = F,size=1.5)+
-  geom_vline(xintercept = c(1951),size=1.1,colour="red")+ylab(~CO[2]~Concentration~(ppm))+theme_bw(base_size = 18)+theme(panel.grid = element_blank())+
+  geom_vline(xintercept = c(1951),size=1.1,colour="red")+
+  ylab(~CO[2]~Concentration~(ppm))+
+  theme_bw(base_size = 18)+
+  theme(panel.grid = element_blank())+
   scale_x_continuous(breaks = c(1700,1800,1850,1900,1925,1950,1975,2000,2015))+
   # geom_text(angle=90,label="Bowhead Whale Born",x=1879,y=325,vjust=0, hjust=0,size=10)+
   geom_text(angle=90,label="Wisdom Hatches",x=1950,y=325,vjust=0, hjust=0,size=10)

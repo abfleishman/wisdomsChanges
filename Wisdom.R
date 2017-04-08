@@ -25,7 +25,7 @@ ggplot(bb,aes(x=Year,y=val),colour="blue")+
   scale_x_continuous(breaks = c(1700,1800,1850,1900,1925,1950,1975,2000,2015))+
   # geom_text(angle=90,label="Bowhead Whale Born",x=1879,y=325,vjust=0, hjust=0,size=10)+
   geom_text(angle=90,label="Wisdom Hatches",x=1950,y=325,vjust=0, hjust=0,size=10)
-ggsave("CO2_1800-2015.jpg",width = 12,height = 8,dpi=120)
+ggsave("CO2_1800-2015.jpg",width =12,height = 7,dpi=120)
 
 bb %>% 
   group_by(Year) %>% 
@@ -42,8 +42,8 @@ ggplot(pop,aes(x=Year,y=Pairs),colour="blue")+
   theme_bw(base_size = 18)+theme(panel.grid = element_blank())+
   scale_x_continuous(breaks = c(1920,1950,1975,2000,2015))+ 
   scale_y_continuous(labels = c("100,000","200,000","300,000","400,000","500,000"),breaks = c(100000,200000,300000,400000,500000))+ 
-  geom_text(angle=90,label="Wisdom Hatches",x=1950,y=150000,vjust=0, hjust=0,size=10)
-ggsave("LAAL_Pop1920-2015.jpg",width = 12,height = 8,dpi=120)
+  geom_text(angle=90,label="Wisdom Hatches",x=1950,y=150000,vjust=0, hjust=0,size=9)
+ggsave("LAAL_Pop1920-2015.jpg",width = 6,height = 5,dpi=120)
 # PLastic
 plast<-data.frame(Year=c(1930,1950,1976,1989,2002,2005,2014),Mton=c(0,1.3,50,100,200,230,311))
 
@@ -55,4 +55,4 @@ ggplot(plast,aes(x=Year,y=Mton),colour="blue")+
   scale_x_continuous(breaks = c(1950,1975,2000,2015),limits = c(1940,2020))+ 
   # scale_y_continuous(labels = c("10,000","100,000","200,000","300,000","400,000","500,000"),breaks = c(10000,100000,200000,300000,400000,500000))+ 
   geom_text(angle=90,label="Wisdom Hatches",x=1950,y=50,vjust=0, hjust=0,size=10)
-ggsave("LAAL_Pplastic1920-2015.jpg",width = 12,height = 8,dpi=120)
+ggsave("LAAL_Pplastic1920-2015.jpg",width = 5,height = 7,dpi=120)
